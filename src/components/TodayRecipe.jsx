@@ -1,6 +1,6 @@
 import React from 'react'
 import Data from '../assets/cook'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 //const Shuffled = Data.sort(() => Math.random() -0.5);
   //console.log(Shuffled);

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link link="" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="bg-slate-800 flex flex-col h-screen w-screen items-center justify-start text-slate-50 overflow-hidden">
+    <h1 class="w-full p-1 bg-slate-800 flex items-center justify-center fixed border-b-2 border-slate-50 text-lg font-bold">LeetCook's Recipes</h1>
+
+    <div class="content w-full h-full flex flex-col items-start p-2 justify-start">
+        <div name="special_today" class="h-2/4 flex flex-col items-start justify-start gap-2">
+            <h2 class="font-semibold text-lg ">Today's Special</h2>
+            <div name="card" class="content-today glass w-full p-1">
+                <img id="dailyCookImg"
+                    src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg"
+                    alt="image" class="mb-1 rounded">
+                <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                <p id="dailyCookDescription" class="h-24 overflow-x-scroll pr-2 text-sm mt-1 ">In this salmon stir-fry, the fish is
+                    lightly coated in sesame seeds and served with lemony stir-fried vegetables, for a delicious, quick
+                    and healthy supper. \nEach serving provides 510 kcal, 32g protein, 16g carbohydrates (of which 10g
+                    sugars), 33g fat (of which 6g saturates), 8g fibre and 0.6g salt.</p>
+            </div>
+        </div>
+        <div class="gap-2 w-full h-full overflow-hidden mt-3 pt-1 glass" name="all_content">
+            <nav class="w-full pr-2">
+                <ol class="flex flex-row items-start justify-around mb-2 gap-2">
+                    <li class="glass p-1 cursor-pointer text-green-400 font-semibold ">Batch Cook</li>
+                    <li class="glass p-1 cursor-pointer">Noodles Bowls</li>
+                    <li class="glass p-1 cursor-pointer">Salmon Suppers</li>
+                </ol>
+            </nav>
+            <div class="w-full mt-1 h-full overflow-x-scroll pl-1 pb-12 pr-1">
+                <ol id="RecipeList" class="flex flex-col items-start justify-start gap-1 pb-12">
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                    <li id="singleRecipeCard" class="glass p-1">
+                        <img src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/salmon_stir-fry_63266_16x9.jpg" class="rounded mb" alt="image">
+                        <h2 id="dailyCookTitle" class="border-b-2 border-slate-50 font-semibold text-lg">Salmon stir-fry</h2>
+                    </li>
+                </ol>
+                <div class="w-full flex flex-row items-center justify-around text-2xl">
+                    <i class="p-2 rounded-full flex items-center justify-center glass w-10 h-10 ri-github-fill"></i>
+                    <i class="p-2 rounded-full flex items-center justify-center glass w-10 h-10 ri-instagram-fill"></i>
+                    <i class="p-2 rounded-full flex items-center justify-center glass w-10 h-10 ri-arrow-up-circle-line"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" pop_up fixed h-full w-full glass">
+        <div class=" w-full h-full flex flex-col items-start justify-start mt-2 p-2">
+            <h2 id="RecipeTitle" class="border-b-2 border-slate-50 font-semibold text-lg mb-2"><span>Recipe :</span> Salmon stir-fry </h2>
+            <img class="rounded" id="RecipeImage" src="https://ichef.bbci.co.uk/food/ic/food_16x9_832/recipes/mango_salmon_39588_16x9.jpg" alt="">
+            <p id="RecipeDescription" class="h-16 overflow-x-scroll text-sm mt-1 border-b-2 border-green-300 pb-3">In this salmon stir-fry, the fish is
+                lightly coated in sesame seeds and served with lemony stir-fried vegetables, for a delicious, quick
+                and healthy supper. \nEach serving provides 510 kcal, 32g protein, 16g carbohydrates (of which 10g
+                sugars), 33g fat (of which 6g saturates), 8g fibre and 0.6g salt.
+            </p>
+            <div class="w-full h-full flex flex-col items-start justify-start overflow-x-scroll mt-1 gap-3">
+                <ul class="list-disc w-full h-fit flex flex-col items-start justify-start">
+                    <li> -> Preparation time: <span id="prepTimeItem">Less than 30 mins</span></li>
+                    <li> -> Cooking time: <span id="cookTimeItem">Less than 30 mins</span></li>
+                    <li> -> Portions: <span id="servesItem">2 Serves</span></li>
+                </ul>
+                <div class="ingredients w-full flex flex-col items-start justify-center">
+                    <div class="w-fit flex flex-row items-start justify-start gap-2 text-lg font-semibold border-b-2 border-green-300 pr-1 pl-1">
+                        <img src="./assets/ingredientsIcon.png" alt="">
+                        <h1>Ingredients :</h1> 
+                    </div>
+                    <ol class="list-decimal">
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                    </ol>
+                </div>
+                <div class="methods w-full flex flex-col items-start justify-center">
+                    <div class="w-fit flex flex-row items-start justify-start gap-2 text-lg font-semibold border-b-2 border-green-300 pr-1 pl-1">
+                        <img src="./assets/methodIcon.png" alt="">
+                        <h1>Methods :</h1> 
+                    </div>
+                    <ol class="list-decimal">
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                    </ol>
+                </div>
+                <div class="tips w-full flex flex-col items-start justify-center">
+                    <div class="w-fit flex flex-row items-start justify-start gap-2 text-lg font-semibold border-b-2 border-green-300 pr-1 pl-1">
+                        <img src="./assets/tipsIcon.png" alt="">
+                        <h1>Tips :</h1> 
+                    </div>
+                    <ol class="list-disc">
+                        <li>kbashc</li>
+                        <li>kbashc</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="cook.js"></script>
+</body>
+
+</html>

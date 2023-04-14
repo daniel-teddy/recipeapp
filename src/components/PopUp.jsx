@@ -51,7 +51,7 @@ function PopUp() {
                             return (
                                 <article>
                                     <li key={index}>
-                                    <span role='img'>➡️</span>{ingredient.item}
+                                    * {ingredient.item}
                                     </li>
                                 </article>
                             )

@@ -1,7 +1,4 @@
-//recipes fully explained and detailed
-
-const Data = [
-
+const RecipesMeals = [
   {
     title: "Easy chicken casserole",
     pTagText:
@@ -7606,9 +7603,7 @@ const Data = [
       },
     ],
   },
-
-
 ];
 
-export default Data;
+export default RecipesMeals;
   

@@ -12,13 +12,17 @@ import { KeyboardAvoidingView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import tw from "twrnc";
+import MapsScreen from "../src/screens/MapsScreen";
+import SettingScreen from "../src/screens/SettingScreen";
+import ReservationScreen from "../src/screens/ReservationScreen";
+import PlaceDetails from "../src/screens/PlaceDetails";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
   return (
     <Tab.Navigator initialRouteName={HomeScreen}>
-        <Tab.Screen
+      <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
@@ -29,8 +33,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Recipe"
-        component={RecipeScreen}
+        name="Maps"
+        component={MapsScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -38,7 +42,26 @@ const HomeTabs = () => {
           ),
         }}
       />
-      
+      <Tab.Screen
+        name="Reservations"
+        component={ReservationScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="map" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="map" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -57,7 +80,8 @@ const Routes = () => {
           }}
         >
           <Stack.Screen name="HomeTabs" component={HomeTabs} />
-          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
+          <Stack.Screen name="Search" component={SearchScreen} />
         </Stack.Navigator>
       </KeyboardAvoidingView>
     </NavigationContainer>

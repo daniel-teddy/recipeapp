@@ -6,9 +6,9 @@ import Routes from './routes/routes';
 
 export default function App() {
   return (
-    <SafeAreaView style={tw`flex-1`}>
+    <View style={tw`flex-1`}>
       <Routes />
-      <StatusBar style="dark" />
-    </SafeAreaView>
+      
+    </View>
   );
 }

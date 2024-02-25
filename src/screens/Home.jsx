@@ -4,17 +4,21 @@ import {
   TextInput,
   Pressable,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
+  ImageBackground,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import tw from "twrnc";
 import RenderCategories from "../components/RenderCategories";
 import RenderIngredients from "../components/RenderIngredients";
 import RenderIngredientsScroll from "../components/RenderIngredientsScroll";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import RenderStatus from "../components/RenderStatus";
+import RenderEvents from "../components/RenderEvents";
 
 const HomeScreen = () => {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const foodTypes = [
     {
       id: 1,
@@ -127,76 +131,127 @@ const HomeScreen = () => {
       type: "Salad",
     },
   ];
-  const [filter, setFilter] = useState("Categories");
+  const [filter, setFilter] = useState("Places");
 
-  const handleFilter = (value) => {
-    setFilter(value);
+
+  const handlePlacePress = (item) => {
+    navigation.navigate('PlaceDetails', { item });
   };
   return (
     <SafeAreaView
       style={tw`flex-1 w-full p-2 flex flex-col items-start justify-start gap-4 bg-white`}
     >
+      <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={tw`flex-1 w-full`}
+        >
       <View style={tw`w-full flex flex-row items-center justify-between px-2`}>
-        <Text style={tw`text-red-500 text-3xl font-bold`}>FireFoods</Text>
-        {/* <Text style={tw` text-xl font-bold`}>Notify</Text> */}
+        <Text style={tw`text-red-500 text-3xl font-bold`}>TravelGo</Text>
+         <Pressable onPress={() => navigation.navigate("Search")}>
+        <Text style={tw` text-xl font-bold`}>Search</Text>
+      </Pressable> 
       </View>
-      <View style={tw`w-full flex flex-row items-center justify-around`}>
-        {["Categories", "Ingredients"].map((type) => (
-          <Pressable key={type} onPress={() => handleFilter(type)}>
-            <Text
-              style={tw`text-xl font-bold ${
-                filter === type ? "text-red-500" : "text-gray-500"
-              }`}
+
+      <View
+        style={tw`flex flex-col items-start justify-center w-full rounded-lg px-2`}
+      >
+        <ImageBackground
+          source={{
+            uri: "https://images.pexels.com/photos/1306791/pexels-photo-1306791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+          }}
+          style={[tw`rounded-lg w-full h-45 overflow-hidden`]}
+        >
+          <View style={tw`flex flex-col items-center justify-center`} />
+          <View
+            style={tw`flex flex-col items-start justify-end h-full p-4 rounded-lg`}
+          >
+            <Text style={tw`text-white text-lg font-bold`}>Music Festival</Text>
+            <View
+              style={tw`bg-blue-500 flex flex-col items-center justify-center p-3 px-6 rounded-full`}
             >
-              {type}
-            </Text>
-          </Pressable>
-        ))}
+              <Pressable>
+                <Text style={tw`text-white font-bold`}>Visit !</Text>
+              </Pressable>
+            </View>
+          </View>
+        </ImageBackground>
       </View>
-      <View style={tw`w-full flex flex-col items-center justify-center px-2`}>
-        <TextInput
-          placeholder="Search for food or ingredient..."
-          style={tw`w-full bg-gray-200 px-2 py-3 rounded-md`}
+      <View
+        style={tw`flex flex-row items-center justify-between w-full mt-3 pb-2 px-2`}
+      >
+        <Pressable onPress={() => navigation.navigate("Trending")}>
+          <Text style={tw`text-slate-800 font-bold`}>Stories</Text>
+        </Pressable>
+        
+      </View>
+      <View>
+        <FlatList
+          data={foodTypes}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={tw``}
+          renderItem={({ item }) => <RenderStatus item={item} />}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      {/* <Pressable onPress={() => navigation.navigate("SearchScreen")}>
-          <Text style={tw` text-xl font-bold`}>Notify</Text>
-          </Pressable> */}
-      {filter === "Categories" && (
-        <View>
-          <FlatList
-            data={foodTypes}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            style={tw`flex gap-2`}
-            renderItem={({ item }) => <RenderCategories item={item} />}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </View>
-      )}
-      {filter === "Ingredients" && (
-        <>
-          <View style={tw`flex flex-col items-center justify-center h-12`}>
-            <FlatList
-              data={foodTypes}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => <RenderIngredientsScroll item={item} />}
-              keyExtractor={(item) => item.id.toString()}
-            />
-          </View>
-          <View style={tw`flex-1`}>
-            <FlatList
-              data={foodIngredientsTypes}
-              numColumns={3}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => <RenderIngredients item={item} />}
-              keyExtractor={(item) => item.id.toString()}
-            />
-          </View>
-        </>
-      )}
+      <View
+        style={tw`flex flex-row items-center justify-between w-full mt-3 px-2`}
+      >
+        <Pressable onPress={() => navigation.navigate("Trending")}>
+          <Text style={tw`text-slate-800 font-bold`}>Places</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("Search")}>
+          <Text style={tw`text-blue-500 font-bold`}>See All</Text>
+        </Pressable>
+      </View>
+      <View>
+        <FlatList
+          data={foodTypes}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <RenderEvents item={item} onPress={handlePlacePress} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+      <View
+        style={tw`flex flex-row items-center justify-between w-full mt-3 px-2`}
+      >
+        <Pressable onPress={() => navigation.navigate("Trending")}>
+          <Text style={tw`text-slate-800 font-bold`}>Events</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("Search")}>
+          <Text style={tw`text-blue-500 font-bold`}>See All</Text>
+        </Pressable>
+      </View>
+      <View>
+        <FlatList
+          data={foodTypes}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <RenderCategories item={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+      <View
+        style={tw`flex flex-row items-center justify-between w-full mt-3 px-2`}
+      >
+        <Pressable onPress={() => navigation.navigate("Trending")}>
+          <Text style={tw`text-slate-800 font-bold`}>Events</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("Search")}>
+          <Text style={tw`text-blue-500 font-bold`}>See All</Text>
+        </Pressable>
+      </View>
+      <View>
+        <FlatList
+          data={foodTypes}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <RenderCategories item={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

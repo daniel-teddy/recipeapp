@@ -1,8 +1,15 @@
 import { Text, Pressable, ImageBackground } from 'react-native'
 import React from "react";
 import tw from "twrnc";
-const  RenderCategories = ({ item }) => (
-    <Pressable
+export default function RenderEvents ({ item, onPress }) {
+    const handlePress = () => {
+        // Call the onPress function passed from the parent component
+        onPress(item);
+      };
+
+    return(
+        <Pressable
+        onPress={handlePress}
       style={[
         tw`w-58 flex flex-col items-start justify-center h-44 m-1 my-2`,
       ]}
@@ -20,5 +27,5 @@ const  RenderCategories = ({ item }) => (
         {item.type}
       </Text>
     </Pressable>
-  );
-  export default RenderCategories;
+    )
+}

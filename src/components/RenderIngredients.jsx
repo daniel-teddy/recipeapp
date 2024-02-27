@@ -4,7 +4,7 @@ import tw from "twrnc";
 const  RenderIngredients = ({ item }) => (
     <Pressable
       style={[
-        tw`w-[31%] flex flex-col items-center justify-center h-35 m-1 mb-2`,
+        tw`w-35 flex flex-col items-center justify-center h-35 m-1 mb-2`,
       ]}
     >
         <ImageBackground

@@ -14,20 +14,20 @@ const MapsComponent = ({item}) => {
         <MapView
           style={tw`flex-1 w-full rounded-lg `}
           initialRegion={{
-            // latitude: item.locationLatitude,
-            // longitude: item.locationLongitude,
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: item.locationLatitude,
+            longitude: item.locationLongitude,
+            // latitude: 37.78825,
+            // longitude: -122.4324,
             latitudeDelta: 0.005,
             longitudeDelta: 0.005,
           }}
         >
           <Marker
             coordinate={{
-            //   latitude: item.locationLatitude,
-            //   longitude: item.locationLongitude,
-            latitude: 37.78825,
-            longitude: -122.4324,
+              latitude: item.locationLatitude,
+              longitude: item.locationLongitude,
+            // latitude: 37.78825,
+            // longitude: -122.4324,
             }}
             title={item.eventName || "place name"}
             description={item.description || "place description"}

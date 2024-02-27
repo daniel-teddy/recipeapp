@@ -1,24 +1,24 @@
-import { Text, Pressable, ImageBackground } from 'react-native'
+import { Text, View, ImageBackground } from 'react-native'
 import React from "react";
 import tw from "twrnc";
 const  RenderStatus = ({ item }) => (
-    <Pressable
+    <View
       style={[
-        tw`w-18 flex flex-col items-center justify-center h-20 m-1 my-2`,
+        tw`w-20 flex flex-col items-center justify-center h-22 m-3`,
       ]}
     >
         <ImageBackground
         source={{ uri: item.imageUrl }}
-        style={[tw` w-full h-18 overflow-hidden flex flex-col items-start justify-end rounded-full`]}
+        style={[tw` w-full h-20 overflow-hidden flex flex-col items-start justify-end rounded-full`]}
         >
         </ImageBackground>
         <Text
         style={[
-          tw`text-slate-600 mt-1`,
+          tw`text-slate-600 mt-2`,
         ]}
       >
         {item.type}
       </Text>
-    </Pressable>
+    </View>
   );
   export default RenderStatus;

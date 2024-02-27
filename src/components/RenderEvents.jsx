@@ -3,7 +3,6 @@ import React from "react";
 import tw from "twrnc";
 export default function RenderEvents ({ item, onPress }) {
     const handlePress = () => {
-        // Call the onPress function passed from the parent component
         onPress(item);
       };
 
@@ -11,12 +10,12 @@ export default function RenderEvents ({ item, onPress }) {
         <Pressable
         onPress={handlePress}
       style={[
-        tw`w-58 flex flex-col items-start justify-center h-44 m-1 my-2`,
+        tw`w-68 flex flex-col items-start justify-center p-1 m-1 my-2 bg-gray-100 rounded-lg`,
       ]}
     >
         <ImageBackground
         source={{ uri: item.imageUrl }}
-        style={[tw` w-full h-40 overflow-hidden flex flex-col items-start justify-end rounded-lg`]}
+        style={[tw` w-full h-46 overflow-hidden flex flex-col items-start justify-end rounded-lg`]}
         >
         </ImageBackground>
         <Text
@@ -24,7 +23,7 @@ export default function RenderEvents ({ item, onPress }) {
           tw`text-slate-600 font-semibold mt-2 pl-2`,
         ]}
       >
-        {item.type}
+        {item.eventName}
       </Text>
     </Pressable>
     )

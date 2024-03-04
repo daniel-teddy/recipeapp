@@ -4,12 +4,12 @@ import tw from "twrnc";
 const  RenderStatus = ({ item }) => (
     <View
       style={[
-        tw`w-20 flex flex-col items-center justify-center h-22 m-3`,
+        tw`w-20 flex flex-col items-center justify-center h-30 mx-2`,
       ]}
     >
         <ImageBackground
         source={{ uri: item.imageUrl }}
-        style={[tw` w-full h-20 overflow-hidden flex flex-col items-start justify-end rounded-full`]}
+        style={[tw` w-full h-20 overflow-hidden flex flex-col items-center justify-center rounded-full`]}
         >
         </ImageBackground>
         <Text
@@ -17,7 +17,7 @@ const  RenderStatus = ({ item }) => (
           tw`text-slate-600 mt-2`,
         ]}
       >
-        {item.type}
+        {item.eventName}
       </Text>
     </View>
   );

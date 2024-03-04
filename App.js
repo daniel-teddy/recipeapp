@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, View } from 'react-native';
-
-import tw from 'twrnc';
-import Routes from './routes/routes';
+import { Text, View } from 'react-native';
+import tw from "twrnc";
+import "react-native-gesture-handler";
+import { AuthProvider } from './auth/AuthContext';
+import { Routes } from './routes/routes';
 
 export default function App() {
   return (
-    <View style={tw`flex-1`}>
+    <AuthProvider>
       <Routes />
-      
-    </View>
+    </AuthProvider>
   );
 }

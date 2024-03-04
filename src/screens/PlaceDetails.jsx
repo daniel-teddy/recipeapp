@@ -175,9 +175,7 @@ export default function PlaceDetails() {
                   >
                     <Text>About :</Text>
                     <Text>
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Quod excepturi rerum a hic, sed rem consequatur ab veniam
-                      sunt culpa, pariatur voluptatum natus saepe?
+                      {item.description}
                     </Text>
                   </View>
                   <View style={tw`p-2 mb-2`}>

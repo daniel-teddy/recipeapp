@@ -17,7 +17,7 @@ const  RenderCategories = ({ item }) => (
           tw`text-slate-600 font-semibold mt-2 pl-2`,
         ]}
       >
-        {item.type}
+        {item.eventName}
       </Text>
     </Pressable>
   );

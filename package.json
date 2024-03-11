@@ -21,6 +21,7 @@
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-gesture-handler": "^2.15.0",
+    "react-native-google-places-autocomplete": "^2.5.6",
     "react-native-maps": "^1.10.3",
     "react-native-vector-icons": "^10.0.3",
     "tailwindcss": "^3.3.2",

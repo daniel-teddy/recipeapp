@@ -6,9 +6,7 @@ import tw from "twrnc";
 const SearchBar = () => {
   return (
     <View style={tw`m-[10] w-full flex flex-row items-center justify-start`}>
-      <View
-        style={styles.searchBar__unclicked }
-      >
+      <View style={styles.searchBar__unclicked}>
         <Feather
           name="search"
           size={20}
@@ -21,20 +19,18 @@ const SearchBar = () => {
         />
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
-      
     </View>
   );
 };
 export default SearchBar;
 
 const styles = StyleSheet.create({
-
   searchBar__unclicked: {
     padding: 10,
     flexDirection: "row",
     width: "95%",
     backgroundColor: "#d9dbda",
-    borderRadius: 15,
+    borderRadius: 5,
     alignItems: "center",
   },
 });

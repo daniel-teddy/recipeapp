@@ -31,13 +31,16 @@ const MapsScreen = () => {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
   const handleEventPress = (item) => {
-    navigation.navigate('EventDetails', { item });
+    navigation.navigate("EventDetails", { item });
   };
   const getEvents = async () => {
     try {
-      const response = await fetch("https://k8fs1psz-3001.euw.devtunnels.ms/events", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://k8fs1psz-3001.euw.devtunnels.ms/events",
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -81,14 +84,14 @@ const MapsScreen = () => {
               title="You are here"
               // description="Place Description"
             />
-            <Circle 
-            center={{
+            <Circle
+              center={{
                 latitude: userLocation.coords.latitude,
                 longitude: userLocation.coords.longitude,
-            }}
-            radius={1000}
-            strokeColor="rgba(0, 122, 255, 0.3)"
-            fillColor="rgba(0, 122, 255, 0.1)"
+              }}
+              radius={1000}
+              strokeColor="rgba(0, 122, 255, 0.3)"
+              fillColor="rgba(0, 122, 255, 0.1)"
             />
             {events.map((event) => (
               <Marker

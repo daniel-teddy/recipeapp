@@ -20,18 +20,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useAuth } from "../../auth/AuthContext";
 
 const HomeScreen = () => {
-
-
-
-
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
 
   const getEvents = async () => {
     try {
-      const response = await fetch("https://k8fs1psz-3001.euw.devtunnels.ms/events", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://k8fs1psz-3001.euw.devtunnels.ms/events",
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
@@ -57,8 +56,6 @@ const HomeScreen = () => {
     navigation.navigate("PlaceDetails", { item });
   };
 
-
-
   const randomItems = events.sort(() => Math.random() - 0.5);
   let selectedElementsRandom = randomItems.slice(0, 8);
 
@@ -68,12 +65,12 @@ const HomeScreen = () => {
   const openModal = (item) => {
     setSelectedGalleryItem(item);
     setModalVisible(true);
-    console.log("first ", selectedGalleryItem)
+    console.log("first ", selectedGalleryItem);
   };
-  
+
   const closeModal = () => {
     setSelectedGalleryItem(null);
-    console.log("first ", selectedGalleryItem)
+    console.log("first ", selectedGalleryItem);
     setModalVisible(false);
   };
 
@@ -138,7 +135,7 @@ const HomeScreen = () => {
             showsHorizontalScrollIndicator={false}
             style={tw``}
             renderItem={({ item }) => (
-              <Pressable onPress={() => openModal({item})}>
+              <Pressable onPress={() => openModal({ item })}>
                 <RenderStatus item={item} />
               </Pressable>
             )}
@@ -224,8 +221,10 @@ const HomeScreen = () => {
                   style={tw` rounded h-full  shadow-lg z-50 w-full flex flex-col items-center justify-center`}
                 >
                   <ImageBackground
-                  source={{
-                    uri: selectedGalleryItem.imageUrl || "https://images.pexels.com/photos/1306791/pexels-photo-1306791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                    source={{
+                      uri:
+                        selectedGalleryItem.imageUrl ||
+                        "https://images.pexels.com/photos/1306791/pexels-photo-1306791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
                     }}
                     style={[tw`rounded-lg w-full h-full overflow-hidden`]}
                   >

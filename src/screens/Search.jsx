@@ -21,6 +21,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 export default function SearchScreen() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
+  const [place, setPlace] = useState([]);
   const [searchType, setSearchType] = useState("Places");
   // const [filter, setFilter] = useState("Categories");
 
@@ -170,8 +171,9 @@ export default function SearchScreen() {
                           language: "en",
                         }}
                         onPress={(item) => {
-                          console.log("details: ", item);
-                          // dispatch(setDestination(null));
+                          // console.log("details: ", item);
+                          setPlace(item);
+                          console.log("details: ", place);
                         }}
                         fetchDetails={true}
                         returnKeyType={"search"}

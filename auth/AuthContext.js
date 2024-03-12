@@ -17,19 +17,16 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       if (response.ok) {
         const { accessToken, userDetails } = await response.json();
@@ -75,22 +72,19 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            email,
-            password,
-            userTypeId,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          userTypeId,
+        }),
+      });
 
       if (response.ok) {
         // const result = await response.json();
@@ -133,12 +127,9 @@ export const AuthProvider = ({ children }) => {
 
   const getEvents = async () => {
     try {
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/events",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://localhost:3001/events", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const result = await response.json();
@@ -195,20 +186,17 @@ export const AuthProvider = ({ children }) => {
 
   const createBooking = async ({ eventId, userId, bookingDetails }) => {
     try {
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/post-bookings",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            eventId,
-            userId,
-            bookingDetails,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/post-bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          eventId,
+          userId,
+          bookingDetails,
+        }),
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

@@ -25,12 +25,9 @@ const HomeScreen = () => {
 
   const getEvents = async () => {
     try {
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/events",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://localhost:3001/events", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const result = await response.json();

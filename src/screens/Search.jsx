@@ -17,7 +17,8 @@ import SearchBar from "../components/SearchBar";
 import RenderSearch from "../components/RenderSearch";
 import RenderSearchThing from "../components/RenderSearchThing";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-
+import { GOOGLE_MAPS_KEY } from "@env";
+import MapView, { Circle, Marker } from "react-native-maps";
 export default function SearchScreen() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
@@ -30,12 +31,9 @@ export default function SearchScreen() {
   };
   const getEvents = async () => {
     try {
-      const response = await fetch(
-        "https://k8fs1psz-3001.euw.devtunnels.ms/events",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://localhost:3001/events", {
+        method: "GET",
+      });
 
       if (response.ok) {
         const result = await response.json();
@@ -159,37 +157,65 @@ export default function SearchScreen() {
                     ))}
                   </View>
                   {searchType === "Places" && (
-                    <View
-                      style={tw`w-full flex flex-col items-center justify-center px-2 mt-2`}
-                    >
-                      <GooglePlacesAutocomplete
-                        nearbyPlacesAPI="GooglePlaceSearch"
-                        debounce={200}
-                        placeholder="Search for places ..."
-                        query={{
-                          key: GOOGLE_MAPS_KEY
-                          language: "en",
-                        }}
-                        onPress={(item) => {
-                          // console.log("details: ", item);
-                          setPlace(item);
-                          console.log("details: ", place);
-                        }}
-                        fetchDetails={true}
-                        returnKeyType={"search"}
-                        minLength={2}
-                        enablePoweredByContainer={false}
-                        styles={{
-                          container: {
-                            flex: 0,
-                            width: "100%",
-                          },
-                          textInput: {
-                            backgroundColor: "#e5e7eb",
-                            fontSize: 18,
-                          },
-                        }}
-                      />
+                    <View>
+                      <View
+                        style={tw`w-full flex flex-col items-center justify-center px-2 mt-2`}
+                      >
+                        <GooglePlacesAutocomplete
+                          nearbyPlacesAPI="GooglePlaceSearch"
+                          debounce={200}
+                          placeholder="Search for places ..."
+                          query={{
+                            key: GOOGLE_MAPS_KEY,
+                            language: "en",
+                          }}
+                          onPress={(item) => {
+                            // console.log("details: ", item);
+                            setPlace(item);
+                            console.log("details: ", item);
+                          }}
+                          fetchDetails={true}
+                          returnKeyType={"search"}
+                          minLength={2}
+                          enablePoweredByContainer={false}
+                          styles={{
+                            container: {
+                              flex: 0,
+                              width: "100%",
+                            },
+                            textInput: {
+                              backgroundColor: "#e5e7eb",
+                              fontSize: 18,
+                            },
+                          }}
+                        />
+                      </View>
+                      <View
+                        style={tw`flex px-2 flex-col items-center h-140 justify-center w-full py-1 bottom-0`}
+                      >
+                        {place && place.length > 0 ? (
+                          <MapView
+                            style={tw`flex-1 w-full rounded-lg`}
+                            initialRegion={{
+                              latitude: 48.8588,
+                              longitude: 2.2944,
+                              latitudeDelta: 0.025,
+                              longitudeDelta: 0.025,
+                            }}
+                          >
+                            <Marker
+                              coordinate={{
+                                latitude: 48.8588,
+                                longitude: 2.2944,
+                              }}
+                              title="You are here"
+                              // description="Place Description"
+                            />
+                          </MapView>
+                        ) : (
+                          <Text>Start searching ...</Text>
+                        )}
+                      </View>
                     </View>
                   )}
                   {searchType === "Events" && (

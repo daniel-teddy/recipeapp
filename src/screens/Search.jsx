@@ -167,7 +167,7 @@ export default function SearchScreen() {
                         debounce={200}
                         placeholder="Search for places ..."
                         query={{
-                          key: "AIzaSyDaUSyD6lgF530BfGQe4sSSPKz0PZEdF6I",
+                          key: GOOGLE_MAPS_KEY
                           language: "en",
                         }}
                         onPress={(item) => {

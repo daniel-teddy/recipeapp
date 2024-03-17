@@ -10,29 +10,6 @@ const MapsScreen = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      try {
-        let location = await Location.getCurrentPositionAsync({});
-        setUserLocation(location);
-        // console.log('Latitude:', userLocation.coords.latitude);
-        // console.log('Longitude:', userLocation.coords.longitude);
-      } catch (error) {
-        setErrorMsg("Error getting location");
-        console.log(errorMsg);
-      }
-    })();
-  }, []);
-  const navigation = useNavigation();
-  const [events, setEvents] = useState([]);
-  const handleEventPress = (item) => {
-    navigation.navigate("EventDetails", { item });
-  };
   const getEvents = async () => {
     try {
       const response = await fetch("http://localhost:3001/events", {
@@ -52,12 +29,33 @@ const MapsScreen = () => {
       console.error("An error occurred while fetching events:", error);
     }
   };
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      try {
+        let location = await Location.getCurrentPositionAsync({});
+        setUserLocation(location);
+        // console.log('Latitude:', userLocation.coords.latitude);
+        // console.log('Longitude:', userLocation.coords.longitude);
+      } catch (error) {
+        setErrorMsg("Error getting location");
+        console.log(errorMsg);
+      }
+    })();
+    getEvents();
+  }, []);
+  const navigation = useNavigation();
+  const [events, setEvents] = useState([]);
+  const handleEventPress = (item) => {
+    navigation.navigate("EventDetails", { item });
+  };
 
   // console.log("events: ", events);
 
-  useEffect(() => {
-    getEvents();
-  }, []);
   return (
     <View>
       <View

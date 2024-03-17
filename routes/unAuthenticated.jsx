@@ -53,20 +53,6 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Reservations"
-        component={ReservationScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="ticket-confirmation-outline"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Settings"
         component={SettingScreen}
         options={{
@@ -99,15 +85,15 @@ export const UnauthenticatedRoutes = () => {
           i
         >
           <Stack.Navigator
-            initialRouteName="HomeTabs"
+            initialRouteName="Welcome"
             screenOptions={{
               headerShown: false,
             }}
           >
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="HomeTabs" component={HomeTabs} />
             <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
             <Stack.Screen name="Search" component={SearchScreen} />
-            <Stack.Screen name="Welcome" component={WelcomeScreen} />
           </Stack.Navigator>
           <StatusBar style="auto" />
         </KeyboardAvoidingView>

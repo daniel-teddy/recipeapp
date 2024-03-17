@@ -1,14 +1,14 @@
 import {
   View,
   Text,
-  ScrollView,
   Pressable,
   SafeAreaView,
   KeyboardAvoidingView,
-  TextInput,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import tw from "twrnc";
+import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,12 +19,16 @@ import RenderSearchThing from "../components/RenderSearchThing";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAPS_KEY } from "@env";
 import MapView, { Circle, Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 export default function SearchScreen() {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
-  const [place, setPlace] = useState([]);
+  const [place, setPlace] = useState();
+  const [placeDescription, setPlaceDescription] = useState([]);
   const [searchType, setSearchType] = useState("Places");
-  // const [filter, setFilter] = useState("Categories");
+
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
 
   const handleFilter = (value) => {
     setSearchType(value);
@@ -48,11 +52,27 @@ export default function SearchScreen() {
       console.error("An error occurred while fetching events:", error);
     }
   };
-  // console.log("events: ", events);
-
   useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      try {
+        let location = await Location.getCurrentPositionAsync({});
+        setUserLocation(location);
+        // console.log("Latitude:", userLocation.coords.latitude);
+        // console.log("Longitude:", userLocation.coords.longitude);
+      } catch (error) {
+        setErrorMsg("Error getting location");
+        console.log(errorMsg);
+      }
+    })();
     getEvents();
-  }, []);
+    // console.log("place:", placeDescription);
+  }, [place]);
+
   const categ = [
     {
       id: 1,
@@ -169,10 +189,10 @@ export default function SearchScreen() {
                             key: GOOGLE_MAPS_KEY,
                             language: "en",
                           }}
-                          onPress={(item) => {
-                            // console.log("details: ", item);
-                            setPlace(item);
-                            console.log("details: ", item);
+                          onPress={(data, details) => {
+                            setPlace(details.geometry.location);
+                            setPlaceDescription(data.description);
+                            // console.log("details: ", details.geometry.location);
                           }}
                           fetchDetails={true}
                           returnKeyType={"search"}
@@ -193,27 +213,74 @@ export default function SearchScreen() {
                       <View
                         style={tw`flex px-2 flex-col items-center h-140 justify-center w-full py-1 bottom-0`}
                       >
-                        {place && place.length > 0 ? (
+                        {userLocation && (
                           <MapView
                             style={tw`flex-1 w-full rounded-lg`}
                             initialRegion={{
-                              latitude: 48.8588,
-                              longitude: 2.2944,
+                              latitude: userLocation.coords.latitude,
+                              longitude: userLocation.coords.longitude,
                               latitudeDelta: 0.025,
                               longitudeDelta: 0.025,
                             }}
                           >
                             <Marker
                               coordinate={{
-                                latitude: 48.8588,
-                                longitude: 2.2944,
+                                latitude: userLocation.coords.latitude,
+                                longitude: userLocation.coords.longitude,
                               }}
                               title="You are here"
-                              // description="Place Description"
-                            />
+                            >
+                              {/* <Image
+                                source={{
+                                  uri: "https://cdn4.iconfinder.com/data/icons/ios-edge-glyph-8/25/Person-Location-2-512.png",
+                                }}
+                                style={tw`h-[2.5rem] w-[2rem]`}
+                              /> */}
+                            </Marker>
+
+                            {place ? (
+                              <>
+                                <MapViewDirections
+                                  origin={{
+                                    latitude: userLocation.coords.latitude,
+                                    longitude: userLocation.coords.longitude,
+                                  }}
+                                  destination={{
+                                    latitude: place.lat,
+                                    longitude: place.lng,
+                                  }}
+                                  apikey={GOOGLE_MAPS_KEY}
+                                  strokeColor="black"
+                                  strokeWidth={4}
+                                />
+                                <Marker
+                                  coordinate={{
+                                    latitude: place.lat,
+                                    longitude: place.lng,
+                                  }}
+                                  title={placeDescription}
+                                  // description={"distance is :"}
+                                >
+                                  {/* <Image
+                                    source={{
+                                      uri: "https://www.iconpacks.net/icons/1/free-pin-icon-48-thumb.png",
+                                    }}
+                                    style={tw`h-[2.5rem] w-[2rem]`}
+                                  /> */}
+                                </Marker>
+                              </>
+                            ) : (
+                              <Circle
+                                center={{
+                                  latitude: userLocation.coords.latitude,
+                                  longitude: userLocation.coords.longitude,
+                                }}
+                                radius={900}
+                                strokeColor="rgba(0, 122, 255, 0.3)"
+                                fillColor="rgba(0, 122, 255, 0.1)"
+                              />
+                            )}
                           </MapView>
-                        ) : (
-                          <Text>Start searching ...</Text>
                         )}
                       </View>
                     </View>

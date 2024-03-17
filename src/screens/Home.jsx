@@ -143,7 +143,7 @@ const HomeScreen = () => {
           style={tw`flex flex-row items-center justify-between w-full mt-3 px-2 mb-2`}
         >
           <Pressable onPress={() => navigation.navigate("Trending")}>
-            <Text style={tw`text-slate-800 font-bold`}>Places</Text>
+            <Text style={tw`text-slate-800 font-bold`}>Top pics</Text>
           </Pressable>
           <Pressable onPress={() => navigation.navigate("Search")}>
             <Text style={tw`text-blue-500 font-bold`}>See All</Text>

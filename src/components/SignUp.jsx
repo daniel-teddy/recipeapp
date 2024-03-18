@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import tw from "twrnc";
 import { useAuth } from "../../auth/AuthContext";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = ({ toggleIsNew }) => {
   const navigation = useNavigation();
@@ -44,6 +45,10 @@ const SignUp = ({ toggleIsNew }) => {
 
   const toggleSecureEntry = () => {
     setIsSecureTextEntry((prev) => !prev);
+  };
+  const handleRegisterLater = async () => {
+    await AsyncStorage.setItem("registerLater", "true");
+    navigation.navigate("HomeTabs");
   };
   return (
     <KeyboardAvoidingView>
@@ -160,7 +165,8 @@ const SignUp = ({ toggleIsNew }) => {
               <View
                 style={tw`w-full flex flex-row items-center justify-center gap-2`}
               >
-                <Pressable onPress={() => navigation.navigate("HomeTabs")}>
+                {/* <Pressable onPress={() => navigation.navigate("HomeTabs")}> */}
+                <Pressable onPress={handleRegisterLater}>
                   <Text style={tw`font-semibold text-lg`}>
                     Register later ?
                   </Text>

@@ -22,7 +22,7 @@ export default function RenderSearchThing({ item, bookMarked, onPress }) {
     >
       <View style={tw`flex flex-row items-center justify-between w-full`}>
         <ImageBackground
-          source={{ uri: item.imageUrl }}
+          source={{ uri: item.image }}
           style={[tw`rounded-l-lg w-38 overflow-hidden`]}
         >
           <View style={tw`flex flex-col items-center justify-center`} />
@@ -33,7 +33,7 @@ export default function RenderSearchThing({ item, bookMarked, onPress }) {
               style={tw`bg-blue-500 flex flex-col items-center justify-center p-2 rounded-full`}
             >
               <Text style={tw`text-white font-semibold`}>
-                {formatDate(item.date)}
+                {formatDate(item.date_range.start_date)}
               </Text>
             </View>
           </View>
@@ -53,9 +53,9 @@ export default function RenderSearchThing({ item, bookMarked, onPress }) {
               size={24}
             />
             <Text style={tw``}>
-              {item.address && item.address.length > 17
-                ? item.address.substring(0, 19) + " ..."
-                : item.address || "Address"}
+              {item.location.link && item.location.link.length > 17
+                ? item.location.link.substring(0, 19) + " ..."
+                : item.location.link || "Address"}
             </Text>
           </View>
           <View style={tw`flex flex-row items-center justify-around w-full`}>

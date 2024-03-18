@@ -1,15 +1,39 @@
-import { View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
 import MapView, { Marker, Circle } from "react-native-maps";
 import tw from "twrnc";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import RenderSearch from "../components/RenderSearch";
 
 const MapsScreen = () => {
   const [errorMsg, setErrorMsg] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
+  const categ = [
+    {
+      id: 1,
+      title: "All",
+    },
+    {
+      id: 5,
+      title: "Music",
+    },
+    {
+      id: 2,
+      title: "Technology",
+    },
+    {
+      id: 3,
+      title: "Community",
+    },
+    {
+      id: 4,
+      title: "Relax",
+    },
+  ];
+  const [pressedCategory, setPressedCategory] = useState(categ[0].id);
   const getEvents = async () => {
     try {
       const response = await fetch("http://localhost:3001/events", {
@@ -59,6 +83,23 @@ const MapsScreen = () => {
   return (
     <View>
       <View
+        style={tw`flex flex-row items-center justify-center gap-2 z-70 absolute pt-10 w-full bg-white pb-2`}
+      >
+        <FlatList
+          data={categ}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <RenderSearch
+              item={item}
+              pressedCategory={pressedCategory}
+              onPress={setPressedCategory}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()} // Ensure key is a string
+        />
+      </View>
+      <View
         style={tw`flex flex-col items-center h-full justify-between w-full mb-1`}
       >
         {userLocation && (
@@ -67,8 +108,8 @@ const MapsScreen = () => {
             initialRegion={{
               latitude: userLocation.coords.latitude,
               longitude: userLocation.coords.longitude,
-              latitudeDelta: 0.025,
-              longitudeDelta: 0.025,
+              latitudeDelta: 0.012,
+              longitudeDelta: 0.012,
             }}
           >
             <Marker

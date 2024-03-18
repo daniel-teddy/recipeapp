@@ -33,17 +33,22 @@ export default function SearchScreen() {
   const handleFilter = (value) => {
     setSearchType(value);
   };
-  const getEvents = async () => {
+  const getXevents = async () => {
     try {
-      const response = await fetch("http://localhost:3001/events", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://crypto-news-api.onrender.com/events",
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
         const eventsString = JSON.stringify(result);
         await AsyncStorage.setItem("events", eventsString);
-        setEvents(result.events);
+        setEvents(result);
+        // console.log("getXevents", eventsString);
+        // console.log("getXevents", JSON.stringify(events));
       } else {
         const errorData = await response.json();
         console.log("Error", errorData.message);
@@ -69,7 +74,7 @@ export default function SearchScreen() {
         console.log(errorMsg);
       }
     })();
-    getEvents();
+    getXevents();
     // console.log("place:", placeDescription);
   }, [place]);
 
@@ -96,7 +101,7 @@ export default function SearchScreen() {
     },
   ];
   const [pressedCategory, setPressedCategory] = useState(categ[0].id);
-  const [bookMarked, setBookMarked] = useState(true);
+  // const [bookMarked, setBookMarked] = useState(true);
 
   const handleEventPress = (item) => {
     navigation.navigate("EventDetails", { item });
@@ -313,7 +318,7 @@ export default function SearchScreen() {
                             <RenderSearchThing
                               style={tw`w-full h-full px-1`}
                               item={item}
-                              bookMarked={bookMarked}
+                              // bookMarked={bookMarked}
                               onPress={handleEventPress}
                             />
                           )}

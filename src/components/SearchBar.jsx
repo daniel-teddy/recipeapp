@@ -14,7 +14,7 @@ const SearchBar = () => {
           style={{ marginLeft: 1 }}
         />
         <TextInput
-          style={tw`font-medium ml-[10] w-[90%]`}
+          style={tw`font-medium text-[1rem] ml-[10] w-[90%]`}
           placeholder="Search"
         />
       </View>
@@ -26,10 +26,10 @@ export default SearchBar;
 
 const styles = StyleSheet.create({
   searchBar__unclicked: {
-    padding: 10,
+    padding: 12,
     flexDirection: "row",
     width: "95%",
-    backgroundColor: "#d9dbda",
+    backgroundColor: "#e5e7eb",
     borderRadius: 5,
     alignItems: "center",
   },

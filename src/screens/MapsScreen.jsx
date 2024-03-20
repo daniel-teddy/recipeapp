@@ -1,6 +1,6 @@
 import { FlatList, Text, View } from "react-native";
 import React, { useState, useEffect } from "react";
-import MapView, { Marker, Circle } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import tw from "twrnc";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
@@ -18,33 +18,38 @@ const MapsScreen = () => {
     },
     {
       id: 5,
-      title: "Music",
+      title: "Hospitals",
     },
     {
       id: 2,
-      title: "Technology",
+      title: "Restaurants & Hotels",
     },
     {
       id: 3,
-      title: "Community",
+      title: "Government",
     },
     {
       id: 4,
-      title: "Relax",
+      title: "Banks",
     },
   ];
   const [pressedCategory, setPressedCategory] = useState(categ[0].id);
-  const getEvents = async () => {
+  const getXevents = async () => {
     try {
-      const response = await fetch("http://localhost:3001/events", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://crypto-news-api.onrender.com/events",
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
         const eventsString = JSON.stringify(result);
         await AsyncStorage.setItem("events", eventsString);
-        setEvents(result.events);
+        setEvents(result);
+        // console.log("getXevents", eventsString);
+        // console.log("getXevents", JSON.stringify(events));
       } else {
         const errorData = await response.json();
         console.log("Error", errorData.message);
@@ -70,7 +75,7 @@ const MapsScreen = () => {
         console.log(errorMsg);
       }
     })();
-    getEvents();
+    getXevents();
   }, []);
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
@@ -96,7 +101,7 @@ const MapsScreen = () => {
               onPress={setPressedCategory}
             />
           )}
-          keyExtractor={(item) => item.id.toString()} // Ensure key is a string
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
       <View
@@ -120,15 +125,7 @@ const MapsScreen = () => {
               title="You are here"
               // description="Place Description"
             />
-            <Circle
-              center={{
-                latitude: userLocation.coords.latitude,
-                longitude: userLocation.coords.longitude,
-              }}
-              radius={1000}
-              strokeColor="rgba(0, 122, 255, 0.3)"
-              fillColor="rgba(0, 122, 255, 0.1)"
-            />
+
             {events.map((event) => (
               <Marker
                 key={event.eventId}

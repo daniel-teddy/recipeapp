@@ -23,17 +23,22 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [events, setEvents] = useState([]);
 
-  const getEvents = async () => {
+  const getXevents = async () => {
     try {
-      const response = await fetch("http://localhost:3001/events", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://crypto-news-api.onrender.com/events",
+        {
+          method: "GET",
+        }
+      );
 
       if (response.ok) {
         const result = await response.json();
         const eventsString = JSON.stringify(result);
         await AsyncStorage.setItem("events", eventsString);
-        setEvents(result.events);
+        setEvents(result);
+        // console.log("getXevents", result);
+        // console.log("getXevents", JSON.stringify(events));
       } else {
         const errorData = await response.json();
         console.log("Error", errorData.message);
@@ -42,11 +47,11 @@ const HomeScreen = () => {
       console.error("An error occurred while fetching events:", error);
     }
   };
-
   // console.log("events: ", events);
 
   useEffect(() => {
-    getEvents();
+    getXevents();
+    // getEvents();
   }, []);
 
   const handlePlacePress = (item) => {
@@ -54,7 +59,7 @@ const HomeScreen = () => {
   };
 
   const randomItems = events.sort(() => Math.random() - 0.5);
-  let selectedElementsRandom = randomItems.slice(0, 8);
+  let selectedElementsRandom = randomItems.slice(2, 7);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState(null);

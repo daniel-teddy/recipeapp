@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Share,
   FlatList,
-  Modal
+  Modal,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -62,8 +62,8 @@ export default function PlaceDetails() {
   const route = useRoute();
   const { item } = route.params;
   const navigation = useNavigation();
-  const EventTextShared = "item.eventName" + " " + "item.description";
-  const eventShared = item.imageUrl;
+  const EventTextShared = item.eventName + " " + item.Description;
+  const eventShared = item.image;
   const ShareContent = async () => {
     try {
       const result = await Share.share({
@@ -85,7 +85,6 @@ export default function PlaceDetails() {
     }
   };
 
-
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState(null);
 
@@ -99,10 +98,14 @@ export default function PlaceDetails() {
     setModalVisible(false);
   };
 
-
   return (
     <GestureHandlerRootView>
-        <View style={[tw`h-full w-full flex-col items-center justify-start`,  isModalVisible && tw`opacity-40`]}>
+      <View
+        style={[
+          tw`h-full w-full flex-col items-center justify-start`,
+          isModalVisible && tw`opacity-40`,
+        ]}
+      >
         <View style={tw`flex-1 w-full h-full`}>
           <View
             style={tw`h-full w-full flex-col items-center justify-start z-70 absolute top-[-0.1rem]`}
@@ -113,7 +116,7 @@ export default function PlaceDetails() {
               <Image
                 style={[tw`w-full h-[16rem] `, { resizeMode: "cover" }]}
                 source={{
-                  uri: item.imageUrl,
+                  uri: item.image,
                 }}
               />
               <SafeAreaView style={tw`flex-1 w-full h-full flex flex-col`}>
@@ -125,7 +128,9 @@ export default function PlaceDetails() {
                     style={tw`flex flex-row items-center justify-between w-full h-12 px-2 `}
                   >
                     <Text style={tw`text-xl font-semibold`}>
-                      {item.eventName}
+                      {item.eventName && item.eventName.length > 17
+                        ? item.eventName.substring(0, 19) + " ..."
+                        : item.eventName || "eventName"}
                     </Text>
                     <Pressable
                       style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg w-16 py-1`}
@@ -174,12 +179,12 @@ export default function PlaceDetails() {
                     style={tw`flex flex-col items-start justify-center ml-1 p-2 gap-2 border-l-4 rounded border-blue-500 mb-2`}
                   >
                     <Text>About :</Text>
-                    <Text>
-                      {item.description}
-                    </Text>
+                    <Text>{item.Description}</Text>
                   </View>
                   <View style={tw`p-2 mb-2`}>
-                  <Text style={tw`text-blue-500 font-bold`}>Place Gallery</Text>
+                    <Text style={tw`text-blue-500 font-bold`}>
+                      Place Gallery
+                    </Text>
                   </View>
                   <View style={tw`mb-2`}>
                     <FlatList
@@ -218,7 +223,7 @@ export default function PlaceDetails() {
                     style={tw`flex flex-col items-start justify-center ml-1 p-2 gap-2 border-l-4 rounded border-red-500 my-2`}
                   >
                     <Text>Established </Text>
-                    <Text>Since {item.date}</Text>
+                    <Text>Since {item.date_range.start_date}</Text>
                   </View>
                 </ScrollView>
               </SafeAreaView>
@@ -235,33 +240,48 @@ export default function PlaceDetails() {
               />
             </Pressable>
           </View>
-          
         </View>
       </View>
       <StatusBar barStyle="light-content" />
       {isModalVisible && (
         <View style={tw`h-full w-full flex-col items-center justify-start `}>
-        <View style={tw`flex-1 w-full h-full`}>
-      <Modal visible={isModalVisible} animationType="slide" transparent style={tw`flex-1  w-full h-full`}>
-        <View style={tw`bg-slate-800 flex-1 h-full opacity-80 bottom-0 absolute w-full`}>
-        </View>
-        <View style={tw`flex-1 h-full w-full justify-center items-center`}>
-          <View style={tw`p-4 rounded h-full  shadow-lg z-50 w-full flex flex-col items-center justify-center`}>
-            <Pressable onPress={closeModal} style={tw`flex flex-row items-center justify-end mb-4 bg-red-200 rounded-lg p-2`}>
-              <Text>Close Modal</Text>
-              <AntDesign name="close" size={24} color="black" />
-            </Pressable>
-            <Image
-                style={[tw`w-full h-[16rem] rounded-lg `, { resizeMode: "cover" }]}
-                source={{
-                  uri: item.imageUrl,
-                }}
-              />
+          <View style={tw`flex-1 w-full h-full`}>
+            <Modal
+              visible={isModalVisible}
+              animationType="slide"
+              transparent
+              style={tw`flex-1  w-full h-full`}
+            >
+              <View
+                style={tw`bg-slate-800 flex-1 h-full opacity-80 bottom-0 absolute w-full`}
+              ></View>
+              <View
+                style={tw`flex-1 h-full w-full justify-center items-center`}
+              >
+                <View
+                  style={tw`p-4 rounded h-full  shadow-lg z-50 w-full flex flex-col items-center justify-center`}
+                >
+                  <Pressable
+                    onPress={closeModal}
+                    style={tw`flex flex-row items-center justify-end mb-4 bg-red-200 rounded-lg p-2`}
+                  >
+                    <Text>Close Modal</Text>
+                    <AntDesign name="close" size={24} color="black" />
+                  </Pressable>
+                  <Image
+                    style={[
+                      tw`w-full h-[16rem] rounded-lg `,
+                      { resizeMode: "cover" },
+                    ]}
+                    source={{
+                      uri: item.imageUrl,
+                    }}
+                  />
+                </View>
+              </View>
+            </Modal>
           </View>
         </View>
-      </Modal>
-      </View>
-      </View>
       )}
     </GestureHandlerRootView>
   );

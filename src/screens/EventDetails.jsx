@@ -70,7 +70,7 @@ export default function EventDetails() {
   const route = useRoute();
   const { item } = route.params;
   const navigation = useNavigation();
-  const EventTextShared = "item.eventName" + " " + "item.description";
+  const EventTextShared = item.eventName + " " + item.Description;
   const eventShared = item.image;
   const ShareContent = async () => {
     try {
@@ -136,7 +136,9 @@ export default function EventDetails() {
                     style={tw`flex flex-row items-center justify-between w-full h-12 px-2 `}
                   >
                     <Text style={tw`text-xl font-semibold`}>
-                      {item.eventName}
+                      {item.eventName && item.eventName.length > 17
+                        ? item.eventName.substring(0, 19) + " ..."
+                        : item.eventName || "eventName"}
                     </Text>
                     {/* <Pressable
                       style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg w-16 py-1`}

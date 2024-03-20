@@ -4,7 +4,7 @@ import tw from "twrnc";
 const RenderStatus = ({ item }) => (
   <View style={[tw`w-20 flex flex-col items-center justify-center h-30 mx-2`]}>
     <ImageBackground
-      source={{ uri: item.imageUrl }}
+      source={{ uri: item.image }}
       style={[
         tw` w-full h-20 overflow-hidden flex flex-col items-center justify-center rounded-full`,
       ]}

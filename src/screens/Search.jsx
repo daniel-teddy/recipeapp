@@ -4,7 +4,8 @@ import {
   Pressable,
   SafeAreaView,
   KeyboardAvoidingView,
-  Image,
+  StyleSheet,
+  TextInput,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import tw from "twrnc";
@@ -13,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
-import SearchBar from "../components/SearchBar";
+import { Feather, Entypo } from "@expo/vector-icons";
 import RenderSearch from "../components/RenderSearch";
 import RenderSearchThing from "../components/RenderSearchThing";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -26,10 +27,10 @@ export default function SearchScreen() {
   const [place, setPlace] = useState();
   const [placeDescription, setPlaceDescription] = useState([]);
   const [searchType, setSearchType] = useState("Places");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [errorMsg, setErrorMsg] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
-
   const handleFilter = (value) => {
     setSearchType(value);
   };
@@ -57,6 +58,14 @@ export default function SearchScreen() {
       console.error("An error occurred while fetching events:", error);
     }
   };
+
+  // let filteredItems = events.filter((item) => {
+  //   return item.title.includes(searchTerm.toLowerCase());
+  //   // || item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  // });
+  if (searchTerm.trim() !== "") {
+    filteredItems = filteredItems.slice(0, 12);
+  }
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -75,8 +84,9 @@ export default function SearchScreen() {
       }
     })();
     getXevents();
+    // handleSearchChange();
     // console.log("place:", placeDescription);
-  }, [place]);
+  }, [place, searchTerm]);
 
   const categ = [
     {
@@ -292,7 +302,25 @@ export default function SearchScreen() {
                   )}
                   {searchType === "Events" && (
                     <>
-                      <SearchBar />
+                      <View
+                        style={tw`m-[10] w-full flex flex-row items-center justify-start`}
+                      >
+                        <View style={styles.searchBar__unclicked}>
+                          <Feather
+                            name="search"
+                            size={20}
+                            color="black"
+                            style={{ marginLeft: 1 }}
+                          />
+                          <TextInput
+                            style={tw`font-medium text-[1rem] ml-[10] w-[90%]`}
+                            placeholder="Search"
+                            value={searchTerm} // Controlled input
+                            onChangeText={(value) => setSearchTerm(value)} // Step 2: Handle input changes
+                          />
+                        </View>
+                        {/* cancel button, depending on whether the search bar is clicked or not */}
+                      </View>
                       <View style={tw`w-full`}>
                         <FlatList
                           data={categ}
@@ -309,20 +337,35 @@ export default function SearchScreen() {
                         />
                       </View>
                       <View style={tw`w-full`}>
-                        <FlatList
-                          data={events}
-                          keyExtractor={(item) => item.eventId.toString()}
-                          vertical
-                          showsVerticalScrollIndicator={false}
-                          renderItem={({ item }) => (
-                            <RenderSearchThing
-                              style={tw`w-full h-full px-1`}
-                              item={item}
-                              // bookMarked={bookMarked}
-                              onPress={handleEventPress}
-                            />
-                          )}
-                        />
+                        {searchTerm.trim() !== "" ? (
+                          <FlatList
+                            data={filteredItems} // Use filteredItems instead of events
+                            keyExtractor={(item) => item.eventId.toString()}
+                            vertical
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item }) => (
+                              <RenderSearchThing
+                                style={tw`w-full h-full px-1`}
+                                item={item}
+                                onPress={handleEventPress}
+                              />
+                            )}
+                          />
+                        ) : (
+                          <FlatList
+                            data={events}
+                            keyExtractor={(item) => item.eventId.toString()}
+                            vertical
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({ item }) => (
+                              <RenderSearchThing
+                                style={tw`w-full h-full px-1`}
+                                item={item}
+                                onPress={handleEventPress}
+                              />
+                            )}
+                          />
+                        )}
                       </View>
                     </>
                   )}
@@ -335,3 +378,14 @@ export default function SearchScreen() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  searchBar__unclicked: {
+    padding: 12,
+    flexDirection: "row",
+    width: "95%",
+    backgroundColor: "#e5e7eb",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+});

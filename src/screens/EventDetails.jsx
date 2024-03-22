@@ -140,11 +140,14 @@ export default function EventDetails() {
                         ? item.eventName.substring(0, 19) + " ..."
                         : item.eventName || "eventName"}
                     </Text>
-                    {/* <Pressable
-                      style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg w-16 py-1`}
+                    <Pressable
+                      onPress={() => navigation.navigate("BuyTicket", { item })}
+                      style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg  p-2`}
                     >
-                      <Text style={tw`text-white font-semibold`}>Visit</Text>
-                    </Pressable> */}
+                      <Text style={tw`text-white font-semibold`}>
+                        Buy Tickets
+                      </Text>
+                    </Pressable>
                   </View>
                   <View
                     style={tw`flex flex-row items-center justify-between w-full h-12 px-2 `}
@@ -159,7 +162,11 @@ export default function EventDetails() {
                           size={25}
                         />
                       </Pressable>
-                      <Text style={tw`font-medium`}>{item.location.link}</Text>
+                      <Text style={tw`font-medium`}>
+                        {item.location.link && item.location.link.length > 22
+                          ? item.location.link.substring(0, 24) + " ..."
+                          : item.location.link || "eventAddress"}
+                      </Text>
                     </View>
                     <View
                       style={tw`flex flex-row items-center justify-start gap-4`}

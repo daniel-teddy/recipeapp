@@ -18,6 +18,11 @@ import PlaceDetails from "../src/screens/PlaceDetails";
 import LogIn from "../src/components/LogIn";
 import SignUp from "../src/components/SignUp";
 import EventDetails from "../src/screens/EventDetails";
+import BuyTicket from "../src/screens/BuyTickets";
+import Payment from "../src/screens/Payment";
+import TicketScreen from "../src/screens/TicketScreen";
+import SecurityScreen from "../src/screens/SecurityScreen";
+import ViewTicket from "../src/screens/ViewTicket";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,8 +51,8 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Reservations"
-        component={ReservationScreen}
+        name="Tickets"
+        component={TicketScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -88,8 +93,12 @@ const AuthenticatedRoutes = () => {
           }}
         >
           <Stack.Screen name="HomeTabs" component={HomeTabs} />
+          <Stack.Screen name="SecurityScreen" component={SecurityScreen} />
           <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
           <Stack.Screen name="EventDetails" component={EventDetails} />
+          <Stack.Screen name="ViewTicket" component={ViewTicket} />
+          <Stack.Screen name="BuyTicket" component={BuyTicket} />
+          <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="Search" component={SearchScreen} />
           <Stack.Screen name="LogIn" component={LogIn} />
           <Stack.Screen name="SignUp" component={SignUp} />

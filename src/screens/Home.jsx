@@ -57,6 +57,9 @@ const HomeScreen = () => {
   const handlePlacePress = (item) => {
     navigation.navigate("PlaceDetails", { item });
   };
+  const handleEventPress = (item) => {
+    navigation.navigate("EventDetails", { item });
+  };
 
   const randomItems = events.sort(() => Math.random() - 0.5);
   let selectedElementsRandom = randomItems.slice(2, 7);
@@ -180,7 +183,9 @@ const HomeScreen = () => {
             data={events}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => <RenderCategories item={item} />}
+            renderItem={({ item }) => (
+              <RenderCategories item={item} onPress={handleEventPress} />
+            )}
             keyExtractor={(item) => item.eventId.toString()}
           />
         </View>

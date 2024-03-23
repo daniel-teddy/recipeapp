@@ -27,7 +27,8 @@ export default function SearchScreen() {
   const [place, setPlace] = useState();
   const [placeDescription, setPlaceDescription] = useState([]);
   const [searchType, setSearchType] = useState("Places");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   const [errorMsg, setErrorMsg] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
@@ -36,57 +37,15 @@ export default function SearchScreen() {
   };
   const getXevents = async () => {
     try {
-      const response = await fetch(
-        "https://crypto-news-api.onrender.com/events",
-        {
-          method: "GET",
-        }
-      );
+      // Attempt to get events from AsyncStorage
+      const storedEvents = await AsyncStorage.getItem("events");
 
-      if (response.ok) {
-        const result = await response.json();
-        const eventsString = JSON.stringify(result);
-        await AsyncStorage.setItem("events", eventsString);
-        setEvents(result);
-        // console.log("getXevents", eventsString);
-        // console.log("getXevents", JSON.stringify(events));
-      } else {
-        const errorData = await response.json();
-        console.log("Error", errorData.message);
-      }
+      const events = JSON.parse(storedEvents);
+      setEvents(events);
     } catch (error) {
       console.error("An error occurred while fetching events:", error);
     }
   };
-
-  // let filteredItems = events.filter((item) => {
-  //   return item.title.includes(searchTerm.toLowerCase());
-  //   // || item.description.toLowerCase().includes(searchTerm.toLowerCase())
-  // });
-  if (searchTerm.trim() !== "") {
-    filteredItems = filteredItems.slice(0, 12);
-  }
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
-      try {
-        let location = await Location.getCurrentPositionAsync({});
-        setUserLocation(location);
-        // console.log("Latitude:", userLocation.coords.latitude);
-        // console.log("Longitude:", userLocation.coords.longitude);
-      } catch (error) {
-        setErrorMsg("Error getting location");
-        console.log(errorMsg);
-      }
-    })();
-    getXevents();
-    // handleSearchChange();
-    // console.log("place:", placeDescription);
-  }, [place, searchTerm]);
 
   const categ = [
     {
@@ -111,7 +70,6 @@ export default function SearchScreen() {
     },
   ];
   const [pressedCategory, setPressedCategory] = useState(categ[0].id);
-  // const [bookMarked, setBookMarked] = useState(true);
 
   const handleEventPress = (item) => {
     navigation.navigate("EventDetails", { item });
@@ -129,19 +87,43 @@ export default function SearchScreen() {
       console.log("Error", "An error occurred while clearing AsyncStorage.");
     }
   };
-
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      try {
+        let location = await Location.getCurrentPositionAsync({});
+        setUserLocation(location);
+        // console.log("Latitude:", userLocation.coords.latitude);
+        // console.log("Longitude:", userLocation.coords.longitude);
+      } catch (error) {
+        setErrorMsg("Error getting location");
+        console.log(errorMsg);
+      }
+    })();
+    getXevents();
+    const filtered = events.filter(
+      (event) =>
+        event.eventName &&
+        event.eventName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredEvents(filtered);
+  }, [place, searchQuery, events]);
   return (
     <GestureHandlerRootView>
       <SafeAreaView>
         <KeyboardAvoidingView>
           <View
-            style={tw`h-full w-full flex-col items-center justify-start px-2`}
+            style={tw`h-full w-full flex-col items-center justify-start px-1`}
           >
             <View
               style={tw`h-full w-full flex-col items-center justify-start pb-34`}
             >
               <View
-                style={tw`flex flex-col items-center justify-start w-full h-full p-2 `}
+                style={tw`flex flex-col items-center justify-start w-full h-full p-1 `}
               >
                 <View
                   style={tw`flex flex-row items-center justify-between w-full`}
@@ -175,7 +157,7 @@ export default function SearchScreen() {
                 </View>
                 <View style={tw`w-full h-full`}>
                   <View
-                    style={tw`w-full flex flex-row items-center justify-between px-2 mb-4 mt-4`}
+                    style={tw`w-full flex flex-row items-center justify-between px-1 mb-4 mt-4`}
                   >
                     {["Places", "Events"].map((type) => (
                       <Pressable key={type} onPress={() => handleFilter(type)}>
@@ -315,11 +297,10 @@ export default function SearchScreen() {
                           <TextInput
                             style={tw`font-medium text-[1rem] ml-[10] w-[90%]`}
                             placeholder="Search"
-                            value={searchTerm} // Controlled input
-                            onChangeText={(value) => setSearchTerm(value)} // Step 2: Handle input changes
+                            value={searchQuery}
+                            onChangeText={setSearchQuery}
                           />
                         </View>
-                        {/* cancel button, depending on whether the search bar is clicked or not */}
                       </View>
                       <View style={tw`w-full`}>
                         <FlatList
@@ -336,36 +317,20 @@ export default function SearchScreen() {
                           keyExtractor={(item) => item.id.toString()} // Ensure key is a string
                         />
                       </View>
-                      <View style={tw`w-full`}>
-                        {searchTerm.trim() !== "" ? (
-                          <FlatList
-                            data={filteredItems} // Use filteredItems instead of events
-                            keyExtractor={(item) => item.eventId.toString()}
-                            vertical
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item }) => (
-                              <RenderSearchThing
-                                style={tw`w-full h-full px-1`}
-                                item={item}
-                                onPress={handleEventPress}
-                              />
-                            )}
-                          />
-                        ) : (
-                          <FlatList
-                            data={events}
-                            keyExtractor={(item) => item.eventId.toString()}
-                            vertical
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({ item }) => (
-                              <RenderSearchThing
-                                style={tw`w-full h-full px-1`}
-                                item={item}
-                                onPress={handleEventPress}
-                              />
-                            )}
-                          />
-                        )}
+                      <View style={tw`w-full mb-[24]`}>
+                        <FlatList
+                          data={filteredEvents}
+                          keyExtractor={(item) => item.eventId.toString()}
+                          vertical
+                          showsVerticalScrollIndicator={false}
+                          renderItem={({ item }) => (
+                            <RenderSearchThing
+                              style={tw`w-full h-full px-1`}
+                              item={item}
+                              onPress={handleEventPress}
+                            />
+                          )}
+                        />
                       </View>
                     </>
                   )}

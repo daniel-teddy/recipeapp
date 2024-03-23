@@ -254,7 +254,7 @@ export default function EventDetails() {
               <MaterialIcons
                 name="arrow-back"
                 size={34}
-                style={tw`text-white font-bold`}
+                style={tw`text-red-500 font-bold`}
               />
             </Pressable>
           </View>

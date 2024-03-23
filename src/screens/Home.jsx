@@ -25,23 +25,31 @@ const HomeScreen = () => {
 
   const getXevents = async () => {
     try {
-      const response = await fetch(
-        "https://crypto-news-api.onrender.com/events",
-        {
-          method: "GET",
-        }
-      );
+      // Attempt to get events from AsyncStorage
+      const storedEvents = await AsyncStorage.getItem("events");
 
-      if (response.ok) {
-        const result = await response.json();
-        const eventsString = JSON.stringify(result);
-        await AsyncStorage.setItem("events", eventsString);
-        setEvents(result);
-        // console.log("getXevents", result);
-        // console.log("getXevents", JSON.stringify(events));
+      if (storedEvents) {
+        // If events are found in AsyncStorage, parse and set them
+        const events = JSON.parse(storedEvents);
+        setEvents(events);
       } else {
-        const errorData = await response.json();
-        console.log("Error", errorData.message);
+        // If no events found in AsyncStorage, fetch from API
+        const response = await fetch(
+          "https://crypto-news-api.onrender.com/events",
+          {
+            method: "GET",
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          const eventsString = JSON.stringify(result);
+          await AsyncStorage.setItem("events", eventsString);
+          setEvents(result);
+        } else {
+          const errorData = await response.json();
+          console.log("Error", errorData.message);
+        }
       }
     } catch (error) {
       console.error("An error occurred while fetching events:", error);

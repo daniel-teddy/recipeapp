@@ -16,7 +16,7 @@ export default function RenderSearchThing({ item, bookMarked, onPress }) {
     <Pressable
       onPress={() => onPress(item)}
       style={[
-        tw`w-full h-40 m-2 rounded-2xl overflow-hidden border border-blue-400`,
+        tw`w-full h-40 my-2 rounded-2xl overflow-hidden border border-blue-400`,
         bookMarked && tw`w-full m-0 my-2`,
       ]}
     >

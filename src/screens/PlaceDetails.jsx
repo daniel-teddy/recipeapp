@@ -133,7 +133,10 @@ export default function PlaceDetails() {
                         : item.eventName || "eventName"}
                     </Text>
                     <Pressable
-                      style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg w-16 py-1`}
+                      onPress={() =>
+                        navigation.navigate("VisitLocation", { item: item })
+                      }
+                      style={tw`flex flex-col bg-blue-500 items-center justify-center border-2 border-blue-500 rounded-lg  p-2`}
                     >
                       <Text style={tw`text-white font-semibold`}>Visit</Text>
                     </Pressable>
@@ -236,7 +239,7 @@ export default function PlaceDetails() {
               <MaterialIcons
                 name="arrow-back"
                 size={34}
-                style={tw`text-white font-bold`}
+                style={tw`text-red-500 font-bold`}
               />
             </Pressable>
           </View>

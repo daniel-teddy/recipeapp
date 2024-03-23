@@ -18,7 +18,7 @@ const SignUp = ({ toggleIsNew }) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 30000);
 
     return () => clearTimeout(timeout);
   }, []);

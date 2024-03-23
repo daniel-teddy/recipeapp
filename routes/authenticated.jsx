@@ -23,6 +23,7 @@ import Payment from "../src/screens/Payment";
 import TicketScreen from "../src/screens/TicketScreen";
 import SecurityScreen from "../src/screens/SecurityScreen";
 import ViewTicket from "../src/screens/ViewTicket";
+import VisitLocation from "../src/screens/VisitLocation";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +96,7 @@ const AuthenticatedRoutes = () => {
           <Stack.Screen name="HomeTabs" component={HomeTabs} />
           <Stack.Screen name="SecurityScreen" component={SecurityScreen} />
           <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
+          <Stack.Screen name="VisitLocation" component={VisitLocation} />
           <Stack.Screen name="EventDetails" component={EventDetails} />
           <Stack.Screen name="ViewTicket" component={ViewTicket} />
           <Stack.Screen name="BuyTicket" component={BuyTicket} />
